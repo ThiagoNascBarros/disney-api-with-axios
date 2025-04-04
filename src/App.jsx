@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import apiDisney from "./service/api";
+import Character from "./components/character.jsx";
 
 export default function App() {
-  const [ character, setCharacter ] = useState([]);
+
+  const [ characters, setCharacters ] = useState([]);
 
   useEffect(() => {
 
     async function getCharacter() {
       try {
-        const res = await apiDisney.get("6160");
-        console.log(res.data);
-        setCharacter(res.data);
+        const response = await apiDisney.get("/character");
+        console.log(response.data);
+        setCharacters(response.data.data);
       } catch (error) {
         console.error("Erro ao buscar dados: ", error);
       }
@@ -18,31 +20,20 @@ export default function App() {
 
     getCharacter();    
   }, []);
-
+  
   return (
+    <div className="bg-gradient-to-b from-blue-500 to-cyan-500 ">
+      <h1 className="text-center font-bold text-6xl mt-12">Personagens da Disney</h1>
+      <div  className="grid grid-cols-3 gap-28 max-w-5xl m-auto mt-10 p-5">
+      { characters.map((character) => (
+        <Character key={character.id} characters={character} />
+      )) }
 
-    <div className="app-container">
-      <h1 className="title">DisneyAPI - Vite + React</h1>
-
-      <div className="character-container">
-        { character.map(item => (
-          <div key={ item._id } className="character-card">
-            { item.image_url && (
-              <img 
-                src={ item.imageUrl }
-                alt={ item.name }
-                className="character-image"
-              />  
-            )}
-            <div className="character-info">
-              <h1>{ item.name }</h1>
-              <p>Fan-Clube de { item.name }: { item.sourceUrl }</p>
-            </div>
-          </div>
-        ))}
+      { characters.length === 0 && (
+        <p className="text-center">Carregando...</p>
+      )}
       </div>
     </div>
-    
-  );
+  )
 
 };
