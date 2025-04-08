@@ -1,73 +1,39 @@
-import React, { useState, useEffect } from "react";
-import apiDisney from "./service/api";
-import Character from "./components/character";
+import React, { useEffect, useState } from 'react';
+import apiDisney from './service/api';
+import CharacterCard from './components/character';
+import SearchBar from './components/SearchCharacter';
 
 export default function App() {
   const [characters, setCharacters] = useState([]);
-  const [searchName, setSearchName] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function getCharacter(name = "") {
-    try {
-      setLoading(true);
-      const response = await apiDisney.get("/character", {
-        params: { name }, // Adiciona o parâmetro de busca
-      });
-
-      // Verifica se a resposta contém um array
-
-      if (Array.isArray(response.data.data)) {
-        setCharacters(response.data.data);
-      } else {
-        // Define como vazio se não for um array
-        setCharacters([]); 
-      }
-    } catch (error) {
-      console.error("Erro ao buscar dados: ", error);
-      // Limpa os personagens em caso de erro
-      setCharacters([]); 
-    } finally {
-      setLoading(false);
-    }
-  }
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    getCharacter(); // Busca inicial sem filtro
-  }, []);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    getCharacter(searchName); // Busca com o nome fornecido
-  };
+    async function getCharacter() {
+      if (search.trim() !== '') {
+        try {
+          const response = await apiDisney.get('/character', {
+            params: { name: search },
+          });
+          setCharacters(response.data.data);
+        } catch (error) {
+          console.error('Erro ao buscar personagens:', error);
+        }
+      }
+    }
+    getCharacter();
+  }, [search]);
 
   return (
-    <div className="text-black max-w-7xl m-auto">
-      <h1 className="text-center font-bold text-6xl mt-18">Personagens da Disney</h1>
-      
-      {/* Campo de busca */}
-      <form onSubmit={handleSearch} className="text-center mt-12">
-        <input
-          type="text"
-          placeholder="Digite o nome do personagem"
-          value={searchName}
-          onChange={(e) => setSearchName(e.target.value)}
-          className="border p-2 w-225 rounded-lg"
-        />
-        <button
-          type="submit"
-          className="ml-2 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
-        >
-          Buscar
-        </button>
-      </form>
-
-      <div className="grid grid-cols-4 gap-10 max-w-7xl m-auto mt-10">
-        {loading && <p className="text-center">Carregando...</p>}
-        {characters.map((character) => (
-          <Character key={character._id} characters={character} /> // Adiciona key única
-        ))}
-        {!loading && characters.length === 0 && (
-          <p className="text-center">Nenhum personagem encontrado.</p>
+    <div className="container mt-auto mx-auto p-18">
+      <h1 className='text-center text-5xl font-bold  animate-bounce'>Personagens da Disney</h1>
+      <SearchBar search={search} onSearchChange={setSearch} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {characters.length > 0 ? (
+          characters.map((character) => (
+            <CharacterCard key={character._id} character={character} />
+          ))
+        ) : (
+          <p>Nenhum personagem encontrado.</p>
         )}
       </div>
     </div>

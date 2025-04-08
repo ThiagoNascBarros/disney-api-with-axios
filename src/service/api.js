@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiDisney = axios.create({
-    baseURL: "/api", // Agora usa o proxy configurado
+    baseURL: "https://api.disneyapi.dev",
 });
 
 export default apiDisney;
