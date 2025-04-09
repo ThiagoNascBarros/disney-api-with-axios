@@ -1,58 +1,71 @@
-# Disney API with Axios
+# Disney API com Axios
 
-Este projeto é uma API que utiliza a biblioteca Axios para realizar requisições a um serviço de terceiros relacionado a conteúdos da Disney.
+Este projeto é uma aplicação React que consome a [Disney API](https://disneyapi.dev) para buscar e exibir informações sobre personagens da Disney. Ele utiliza Axios para realizar as requisições HTTP e Tailwind CSS para estilização.
 
-## Detalhes do Repositório
-
-- **Nome:** disney-api-with-axios
-- **Descrição:** Este é um projeto que usa o axios para fazer requisições na API da Disney. Projeto acadêmico pelo curso técnico.
-- **Linguagem Principal:** JavaScript
-- **Proprietário:** [ThiagoNascBarros](https://github.com/ThiagoNascBarros)
-- **URL do Repositório:** [ThiagoNascBarros/disney-api-with-axios](https://github.com/ThiagoNascBarros/disney-api-with-axios)
+---
 
 ## Funcionalidades
 
-O projeto possui as seguintes funcionalidades:
+- **Busca de Personagens**: Permite buscar personagens da Disney pelo nome.
+- **Exibição de Detalhes**: Mostra informações como imagem, nome, filmes e links relacionados ao personagem.
+- **Interface Responsiva**: Layout adaptável para diferentes tamanhos de tela.
 
-- Busca personagens pelos seus respectivos nomes.
+---
 
-## Instalação
+## Como Executar o Projeto
 
-Para instalar as dependências do projeto, execute o seguinte comando:
+### Pré-requisitos
 
-```bash
-npm install
+- Node.js instalado na máquina.
+- Gerenciador de pacotes (npm ou yarn).
+
+### Passos
+
+1. **Clone o repositório**:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   cd disney-api-with-axios
+   ```
+2. **Instale as dependências:**
+    ```bash
+    npm install
+    ```
+3. **Inicie o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+
+4. **Acesse a aplicação:** Abra o navegador e vá para http://localhost:5173.
+
+---
+
+## Estrutura do Projeto
+
+```
+├── .gitignore
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── components/
+│   │   ├── character.jsx
+│   │   └── SearchCharacter.jsx
+│   ├── service/
+│   │   └── api.js
+│   └── style.css
 ```
 
-## Uso
-### Scripts Disponíveis
+### Principais Arquivos
+- src/App.jsx: Componente principal que  gerencia o estado da aplicação e renderiza os componentes de busca e exibição de personagens.
+- src/components/character.jsx: Componente que exibe as informações detalhadas de cada personagem.
+- src/components/SearchCharacter.jsx: Componente de entrada de texto para realizar a busca de personagens.
+- src/service/api.js: Configuração do Axios para realizar requisições à Disney API.
+- tailwind.config.js: Configuração do Tailwind CSS.
 
-No arquivo package.json temos os seguintes scripts configurados:
-
-- dev: Inicia o servidor de desenvolvimento usando Vite.
-- build: Compila o aplicativo para produção usando Vite.
-- lint: Executa o ESLint para checar problemas no código.
-- preview: Inicia um servidor para visualizar a versão de produção.
-
-Para executar qualquer um desses scripts, você pode usar o comando ```npm run <script-name>```. Por exemplo:
-```bash
-npm run dev
-```
-
-## Dependências
-### Produtivas
-- @tailwindcss/vite: ^4.1.2
-- axios: ^1.8.4
-- react: ^19.0.0
-- react-dom: ^19.0.0
-- tailwindcss: ^4.1.2
-- Desenvolvimento
-- @eslint/js: ^9.21.0
-- @types/react: ^19.0.10
-- @types/react-dom: ^19.0.4
-- @vitejs/plugin-react: ^4.3.4
-- eslint: ^9.21.0
-- eslint-plugin-react-hooks: ^5.1.0
-- eslint-plugin-react-refresh: ^0.4.19
-- globals: ^15.15.0
-- vite: ^6.2.0
+### **Tecnologias Utilizadas**
+- **React**: Biblioteca para construção de interfaces de usuário.
+- **Axios**: Cliente HTTP para realizar requisições à API.
+- **Tailwind CSS**: Framework CSS para estilização.
+- **Vite**: Ferramenta de build para desenvolvimento rápido.
